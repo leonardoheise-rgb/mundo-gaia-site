@@ -1,0 +1,15 @@
+{
+  "name": "Mundo Gaia",
+  "short_name": "Mundo Gaia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f7fbff",
+  "theme_color": "#7bc9ff",
+  "icons": [
+    {
+      "src": "/assets/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
