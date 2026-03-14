@@ -6,9 +6,11 @@
     <title>App Mundo Gaia | História para dormir e meditação para crianças</title>
     <meta
       name="description"
-      content="Conheça o App Mundo Gaia: história para dormir, meditação para crianças e histórias para acalmar crianças. Um apoio gentil para acalmar criança agitada e criar uma rotina de sono mais tranquila."
+      content="Conheça o App Mundo Gaia: história para dormir, meditação para crianças e áudios suaves para acolher emoções, acalmar a rotina e dormir com mais serenidade."
     />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://corujagaia.com.br/" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -16,12 +18,12 @@
     />
     <meta
       property="og:description"
-      content="Um app para acolher emoções, criar noites mais tranquilas e oferecer uma história para dormir com mais presença."
+      content="Um app brasileiro para acolher emoções, criar noites mais tranquilas e transformar a hora de dormir em um momento de conexão."
     />
     <meta property="og:url" content="https://corujagaia.com.br/" />
     <meta
       property="og:image"
-      content="https://corujagaia.com.br/assets/logo.png"
+      content="https://corujagaia.com.br/assets/noites-tranquilas.jpg"
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -31,6 +33,10 @@
     <meta
       name="twitter:description"
       content="Histórias suaves, meditações guiadas e cuidado emocional para a rotina das famílias."
+    />
+    <meta
+      name="twitter:image"
+      content="https://corujagaia.com.br/assets/noites-tranquilas.jpg"
     />
     <link rel="icon" href="/assets/logo.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -53,7 +59,7 @@
           "price": "0",
           "priceCurrency": "BRL"
         },
-        "description": "História para dormir, meditação para crianças e áudios suaves para apoiar rotina noturna, calma e vínculo familiar.",
+        "description": "História para dormir, meditação para crianças e áudios suaves para apoiar a rotina noturna, a calma e o vínculo familiar.",
         "downloadUrl": [
           "https://apps.apple.com/br/app/mundo-gaia-medita%C3%A7%C3%A3o-infantil/id6745092747",
           "https://play.google.com/store/apps/details?id=com.gaiastar.MundoGaia"
@@ -63,6 +69,62 @@
           "name": "Mundo Gaia",
           "url": "https://corujagaia.com.br/"
         }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "O App Mundo Gaia funciona como história para dormir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. O app oferece histórias guiadas e meditações suaves que funcionam como história para dormir, criando um hábito calmo, previsível e acolhedor para o fim do dia."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O app pode ajudar a acalmar criança agitada antes de dormir?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sim. As práticas ajudam a desacelerar o corpo e a atenção, o que pode apoiar quem busca acalmar criança agitada e acalmar criança para dormir sem pressão."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "O App Mundo Gaia pode apoiar para acalmar criança chorando?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ele pode ser um apoio gentil depois do acolhimento inicial de quem cuida. Em momentos de choro, a voz calma, a repetição e a previsibilidade podem ajudar a criança a se reorganizar com mais segurança."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pode ser usado por famílias que buscam apoio para acalmar criança autista?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pode, sempre com adaptação sensível ao perfil da criança. Muitas famílias preferem testar em volume baixo, com repetição e em um ambiente previsível, respeitando o tempo e a sensibilidade sensorial de cada criança."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Tem música para acalmar criança?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Temos m\u00fasicas dispon\u00edveis que foram desenvolvidas para acalmar crian\u00e7as."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Para qual idade o Mundo Gaia foi pensado?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "As meditações podem acompanhar desde a gestação e costumam fazer sentido para crianças pequenas até por volta dos 10 anos, sempre com a mediação afetuosa de quem cuida."
+            }
+          }
+        ]
       }
     </script>
   </head>
@@ -97,146 +159,64 @@
               </svg>
             </button>
 
-            <div class="site-nav__links" data-menu>
+            <div class="site-nav__links" data-menu hidden>
               <a class="nav-link" href="/" aria-current="page">Início</a>
               <a class="nav-link" href="/sobre/">Sobre nós</a>
               <a class="nav-link" href="/beneficios/">Benefícios</a>
+              <a class="button button--primary site-nav__cta" href="#download">Baixe agora</a>
             </div>
-
-            <a class="button button--primary" href="#download">Baixe agora</a>
           </nav>
         </div>
       </header>
 
       <main>
         <section class="hero">
-          <div class="container hero__grid hero__grid--home">
-            <div data-reveal>
+          <div class="container hero__grid hero__grid--home hero__grid--home-intro">
+            <div class="hero-copy" data-reveal>
               <span class="eyebrow">App Mundo Gaia</span>
-              <h1>História para dormir e meditação para crianças.</h1>
+              <h1>Histórias para ajudar sua criança a desacelerar na hora de dormir.</h1>
               <p>
-                O App Mundo Gaia reúne história para dormir, meditação para
-                crianças e histórias para acalmar crianças em um só lugar. É um
-                cuidado gentil para quem deseja acalmar criança agitada, trazer
-                mais presença para a noite e transformar a rotina em um momento
-                de conexão.
+                Se o fim do dia costuma vir com agitação, dificuldade para dormir ou emoções à flor da pele, o Mundo Gaia pode ajudar. O app reúne histórias guiadas, meditações infantis e uma voz acolhedora para transformar a noite em um momento mais calmo, previsível e afetuoso.
               </p>
 
-              <div class="hero__actions">
-                <a
-                  class="button button--primary"
-                  href="https://apps.apple.com/br/app/mundo-gaia-medita%C3%A7%C3%A3o-infantil/id6745092747"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Baixar o app
-                </a>
+              <div class="hero__actions hero-downloads" id="hero-downloads">
+                <a class="button button--primary" href="#download">Baixar grátis</a>
                 <a class="button button--secondary" href="#experimentar">
-                  Experimentar a proposta
+                  Ouvir uma prévia real
                 </a>
               </div>
+
+              <p class="download-note">
+                O app é gratuito para baixar na App Store e no Google Play.
+              </p>
 
               <div class="trust-row" aria-label="Destaques do aplicativo">
-                <span class="trust-pill">Cuidado emocional com leveza</span>
-                <span class="trust-pill">Rotina noturna mais calma</span>
-                <span class="trust-pill">Pais e filhos mais conectados</span>
+                <span class="trust-pill">Histórias e meditações para dormir</span>
+                <span class="trust-pill">hábitos curtos para noites agitadas</span>
+                <span class="trust-pill">Mais calma para a criança e para quem cuida</span>
               </div>
-            </div>
-
-            <div class="hero-card" data-reveal>
-              <div class="hero-card__art">
-                <div class="hero-card__owl">
-                  <img
-                    src="/assets/coruja-muro.png"
-                    alt="Ilustração da coruja Gaia olhando por cima do muro."
-                  />
-                </div>
-              </div>
-
-              <div class="hero-card__meta">
-                <div class="hero-card__badge">Calma, imaginação e vínculo</div>
-                <div>
-                  <strong>Um espaço macio para sentir, respirar e crescer.</strong>
-                  <p>
-                    Histórias suaves, meditações guiadas e uma presença afetiva
-                    para acompanhar o fim do dia.
-                  </p>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        <section class="section">
-          <div class="container">
-            <div class="section-heading" data-reveal>
-              <h2>Uma forma gentil de apoiar o bem-estar emocional desde cedo.</h2>
-              <p>
-                Quando a rotina pesa, ter um pequeno ritual pode fazer toda a
-                diferença. O App Mundo Gaia foi pensado para trazer um respiro
-                possível, bonito e acolhedor para o dia a dia das famílias.
-              </p>
-            </div>
-
-            <div class="grid-3">
-              <article class="glass-card" data-reveal>
-                <div class="card-icon" aria-hidden="true">
-                  <img src="/assets/svg/moon.svg" alt="" />
-                </div>
-                <h3>Noites tranquilas</h3>
-                <p>
-                  Uma história para dormir com respiração guiada, imaginação e
-                  acolhimento para acalmar criança para dormir com mais leveza.
-                </p>
-              </article>
-
-              <article class="glass-card" data-reveal>
-                <div class="card-icon" aria-hidden="true">
-                  <img src="/assets/svg/heart.svg" alt="" />
-                </div>
-                <h3>Inteligência emocional</h3>
-                <p>
-                  Meditação para crianças e histórias para acalmar crianças
-                  ajudam a reconhecer sentimentos com delicadeza e constância.
-                </p>
-              </article>
-
-              <article class="glass-card" data-reveal>
-                <div class="card-icon" aria-hidden="true">
-                  <img src="/assets/svg/two-hands-heart.svg" alt="" />
-                </div>
-                <h3>Conexão familiar</h3>
-                <p>
-                  Um ritual simples para desacelerar junto, acolher emoções e
-                  fortalecer o vínculo antes do sono.
-                </p>
-              </article>
             </div>
           </div>
         </section>
 
         <section class="section" id="experimentar">
-          <div class="container">
-            <div class="section-heading" data-reveal>
-              <h2>Uma história para dormir com respiração, imaginação e calma.</h2>
-              <p>
-                Escute uma prévia real da proposta do app. A meditação
-                <strong>Coruja Gaia e o Morango Gigante</strong> convida a
-                criança a imaginar proteção, força e segurança com uma linguagem
-                leve e afetuosa.
-              </p>
-            </div>
+          <div class="container split-panel split-panel--preview">
+            <div class="hero-preview" data-reveal>
+              <div class="hero-preview__media">
+                <img
+                  src="/assets/leitura-na-cama.jpg"
+                  alt="Criança em um momento tranquilo representando a proposta do App Mundo Gaia."
+                />
+              </div>
 
-            <div class="audio-card" data-reveal>
-              <div class="audio-card__controls">
+              <div class="hero-preview__content">
                 <div>
-                  <span class="kicker">Prévia disponível</span>
-                  <h3>Coruja Gaia e o Morango Gigante</h3>
+                  <span class="kicker">Experimente agora</span>
+                  <h2>Ouça uma história antes de baixar.</h2>
                   <p>
-                    Uma amostra da biblioteca do Mundo Gaia para sentir o ritmo,
-                    o cuidado na narração e a atmosfera que acompanha a hora de
-                    dormir.
+                    A prévia <strong>Coruja Gaia e o Morango Gigante</strong>
+                    mostra como o app ajuda a conduzir a transição para o sono
+                    com voz calma, imaginação e um ritmo mais sereno.
                   </p>
                 </div>
 
@@ -271,23 +251,31 @@
 
                 <audio data-audio preload="metadata">
                   <source
-                    src="/assets/coruja-gaia-morango-gigante.mp3"
+                    src="/assets/Coruja Gaia e o Morango Gigante.mp3"
                     type="audio/mpeg"
                   />
                 </audio>
               </div>
+            </div>
 
-              <div class="audio-card__art">
-                <img
-                  src="/assets/leitura-na-cama.jpg"
-                  alt="Criança em um momento tranquilo representando a proposta do App Mundo Gaia."
-                />
-              </div>
+            <div class="panel-text" data-reveal>
+              <span class="kicker">Como isso entra na rotina</span>
+              <h2>Um primeiro passo simples para testar hoje à noite.</h2>
+              <p>
+                Se você está buscando ajuda para a hora de dormir, aqui dá para
+                sentir o clima real do app antes de instalar. É uma forma leve de
+                perceber se essa voz e esse ritmo combinam com a sua criança.
+              </p>
+              <ul class="feature-list">
+                <li>Escute alguns minutos da história acima e veja como sua criança responde.</li>
+                <li>Use depois de reduzir luz, telas e estímulos do ambiente.</li>
+                <li>Se fizer sentido, siga para o app completo com mais histórias e meditações.</li>
+              </ul>
             </div>
           </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="o-que-e">
           <div class="container split-panel" data-reveal>
             <div class="panel-image">
               <img
@@ -296,19 +284,24 @@
               />
             </div>
             <div class="panel-text">
-              <span class="kicker">Pequenos rituais</span>
-              <h2>O app entra na rotina com leveza.</h2>
+              <span class="kicker">O que é o Mundo Gaia</span>
+              <h2>Um app para ajudar a criança a desacelerar e dormir com mais calma.</h2>
               <p>
-                Em vez de mais estímulo, o Mundo Gaia oferece pausa. Em vez de
-                pressa, oferece previsibilidade. Esse cuidado simples pode
-                ajudar a criança a se organizar por dentro e a família a viver a
-                noite com mais presença.
+                Em vez de mais estímulo, o Mundo Gaia oferece um hábito simples
+                para a noite: história para dormir, meditações infantis e uma voz
+                acolhedora que ajudam a sinalizar ao corpo que está chegando a
+                hora de descansar.
               </p>
               <ul class="feature-list">
-                <li>Ajuda a criar uma transição mais suave entre o dia e o sono.</li>
-                <li>Oferece meditação para crianças com linguagem acolhedora.</li>
-                <li>Funciona como história para dormir e como momento de conexão.</li>
+                <li>Ajuda a sinalizar que a noite começou.</li>
+                <li>Convida a criança a respirar, imaginar e ir reduzindo o ritmo.</li>
+                <li>Cria um momento simples de conexão entre quem cuida e quem escuta.</li>
               </ul>
+              <p>
+                A proposta foi criada pela Deliane a partir da escuta da infância,
+                da prática com famílias e de uma rotina real, sem complicar o que
+                já é sensível no fim do dia.
+              </p>
               <div class="section-actions">
                 <a class="button button--secondary" href="/beneficios/">
                   Ver benefícios completos
@@ -318,47 +311,95 @@
           </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="para-quem-e">
           <div class="container">
             <div class="section-heading" data-reveal>
-              <h2>Textos suaves para meditar, imaginar, acolher e respirar.</h2>
+              <h2>Para quem o app faz sentido.</h2>
               <p>
-                A voz do Mundo Gaia fala com serenidade. É um convite para
-                sentir, fazer pausa, imaginar e crescer sem pressa.
+                O Mundo Gaia foi pensado para a rotina real das famílias. Ele
+                ajuda mais quando o objetivo é acalma r a noite, apoiar o sono e
+                criar pequenos hábitos possíveis sem aumentar a pressão.
+              </p>
+            </div>
+
+            <div class="grid-3">
+              <article class="glass-card" data-reveal>
+                <div class="card-icon" aria-hidden="true">
+                  <img src="/assets/svg/moon.svg" alt="" />
+                </div>
+                <h3>Para noites corridas</h3>
+                <p>
+                  Quando o dia foi intenso e a casa precisa reduzir o ritmo para
+                  a criança conseguir se preparar para dormir.
+                </p>
+              </article>
+
+              <article class="glass-card" data-reveal>
+                <div class="card-icon" aria-hidden="true">
+                  <img src="/assets/svg/heart.svg" alt="" />
+                </div>
+                <h3>Para crianças que sentem muito</h3>
+                <p>
+                  Quando as emoções vêm grandes e um apoio suave pode ajudar a
+                  organizar o corpo, a respiração e a atenção com mais delicadeza.
+                </p>
+              </article>
+
+              <article class="glass-card" data-reveal>
+                <div class="card-icon" aria-hidden="true">
+                  <img src="/assets/svg/two-hands-heart.svg" alt="" />
+                </div>
+                <h3>Para famílias que querem presença</h3>
+                <p>
+                  Para pais, mães e cuidadores que buscam um momento simples de
+                  vínculo antes de dormir, sem transformar a rotina em mais uma tarefa.
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="como-ajuda">
+          <div class="container">
+            <div class="section-heading" data-reveal>
+              <h2>Como o Mundo Gaia costuma ajudar na prática.</h2>
+              <p>
+                O app cria um clima
+                mais seguro para reduzir estímulos, desacelerar o corpo e deixar
+                a hora de dormir mais leve para todo mundo.
               </p>
             </div>
 
             <div class="grid-2">
               <article class="mini-card" data-reveal>
-                <h3>Para momentos de agitação</h3>
+                <h3>Na hora de dormir</h3>
                 <p>
-                  Quando a criança está mais acelerada, os áudios ajudam a
-                  reduzir estímulos e abrir espaço para corpo e atenção
-                  desacelerarem juntos.
+                  A voz calma, a repetição e a imaginação guiada ajudam a marcar
+                  a transição entre o dia agitado e uma noite mais serena.
                 </p>
               </article>
 
               <article class="mini-card" data-reveal>
-                <h3>Para fortalecer vínculos</h3>
+                <h3>Depois de um momento intenso</h3>
                 <p>
-                  Escutar lado a lado cria um ritual delicado. A família respira
-                  no mesmo ritmo e constrói uma memória de cuidado.
+                  Depois de um momento íntimo com a criança, o app pode continuar o hábito
+                  com mais previsibilidade, menos estímulo e mais suavidade.
+                </p>
+              </article>
+
+              <article class="mini-card" data-reveal>
+                <h3>Para fortalecer vínculo</h3>
+                <p>
+                  Escutar junto cria uma memória de cuidado. Às vezes, alguns
+                  minutos de presença mudam o tom de toda a noite e da rotina de sono.
                 </p>
               </article>
 
               <article class="mini-card" data-reveal>
                 <h3>Para reconhecer emoções</h3>
                 <p>
-                  O app trabalha sentimentos como calma, amor, paz, gratidão e
-                  empatia sem infantilizar quem cuida.
-                </p>
-              </article>
-
-              <article class="mini-card" data-reveal>
-                <h3>Para dormir com mais serenidade</h3>
-                <p>
-                  A proposta combina ritmo suave, imaginação e acolhimento em
-                  uma experiência que apoia o descanso noturno.
+                  O conteúdo convida a nomear sentimentos como calma, amor,
+                  gratidão e coragem sem complicar a linguagem.
                 </p>
               </article>
             </div>
@@ -368,40 +409,48 @@
         <section class="section">
           <div class="container">
             <div class="section-heading" data-reveal>
-              <h2>O que as famílias contam sobre o uso do app na rotina.</h2>
+              <h2>Histórias de quem levou o app para dentro da rotina.</h2>
               <p>
-                Relatos reais de quem encontrou no Mundo Gaia uma forma mais
-                calma de atravessar o dia e o momento de dormir.
+                O que mais vemos nos relatos não é uma pressa por resultado, e sim a
+                sensação de que a noite fica mais calma e acolhedora
+                quando a Coruja Gaia entra na rotina.
               </p>
             </div>
 
-            <div class="faq-grid">
-              <article class="faq-card" data-reveal>
-                <h3>Clarissa Suelen Oliveira</h3>
-                <p>
-                  “Escutei a Coruja Gaia ainda na gestação da minha filha. Foi um
-                  jeito tranquilo e amoroso de viver esse vínculo desde cedo.”
-                </p>
-                <span class="kicker">mãe da Lia</span>
-              </article>
-
-              <article class="faq-card" data-reveal>
-                <h3>Ana Paula</h3>
-                <p>
+            <div class="testimonial-layout">
+              <article class="testimonial-featured" data-reveal>
+                <span class="kicker">Rotina que ficou</span>
+                <blockquote>
                   “Ela nos acompanha todas as noites e traz paz, segurança e
                   acolhimento para toda a família. Virou parte da nossa rotina.”
-                </p>
-                <span class="kicker">mãe da Letícia e da Alice</span>
+                </blockquote>
+                <footer>
+                  <strong>Ana Paula</strong><br>
+                  <span class="kicker">Mãe da Letícia e da Alice</span>
+                </footer>
               </article>
 
-              <article class="faq-card" data-reveal>
-                <h3>Dafne</h3>
-                <p>
-                  “Como psicóloga e mãe, vejo a Gaia como uma aliada no
-                  autoconhecimento e no autocontrole emocional das crianças.”
-                </p>
-                <span class="kicker">mãe do Ian</span>
-              </article>
+              <div class="testimonial-stack">
+                <article class="testimonial-card" data-reveal>
+                  <span class="testimonial-card__tag">Desde a gestação</span>
+                  <p>
+                    “Escutei a Coruja Gaia ainda na gestação da minha filha. Foi
+                    um jeito tranquilo e amoroso de viver esse vínculo desde cedo.”
+                  </p>
+                  <strong>Clarissa Suelen Oliveira</strong>
+                  <span class="kicker">mãe da Lia</span>
+                </article>
+
+                <article class="testimonial-card" data-reveal>
+                  <span class="testimonial-card__tag">Olhar profissional e materno</span>
+                  <p>
+                    “Como psicóloga e mãe, vejo a Gaia como uma aliada no
+                    autoconhecimento e no autocontrole emocional do meu filho.”
+                  </p>
+                  <strong>Dafne</strong>
+                  <span class="kicker">mãe do Ian</span>
+                </article>
+              </div>
             </div>
           </div>
         </section>
@@ -410,11 +459,11 @@
           <div class="container faq-shell">
             <div class="text-block" data-reveal>
               <span class="eyebrow">Perguntas frequentes</span>
-              <h2>O essencial, com clareza e sem ruído.</h2>
+              <h2>O essencial para decidir com calma.</h2>
               <p>
-                A proposta do Mundo Gaia é simples: acolher a rotina com mais
-                calma, imaginação e presença. Aqui estão algumas respostas para
-                quem está conhecendo o app agora.
+                Se você está conhecendo o app agora, estas respostas ajudam a
+                entender como ele costuma entrar na rotina, o que esperar da
+                experiência e como ele pode apoiar a hora de dormir.
               </p>
             </div>
 
@@ -423,7 +472,7 @@
                 <summary>O App Mundo Gaia funciona como história para dormir?</summary>
                 <p>
                   Sim. O app oferece histórias guiadas e meditações suaves que
-                  funcionam como história para dormir, criando um ritual calmo,
+                  funcionam como história para dormir, criando um hábito calmo,
                   previsível e acolhedor para o fim do dia.
                 </p>
               </details>
@@ -451,8 +500,7 @@
                 <summary>Pode ser usado por famílias que buscam apoio para acalmar criança autista?</summary>
                 <p>
                   Pode, sempre com adaptação sensível ao perfil da criança.
-                  Muitas famílias preferem testar em volume baixo, com
-                  repetição e em um ambiente previsível, respeitando o tempo e a
+                  Muitas famílias preferem testar em volume mais baixo e em um ambiente previsível, respeitando o tempo e a
                   sensibilidade sensorial de cada criança.
                 </p>
               </details>
@@ -460,10 +508,8 @@
               <details class="faq-item" data-reveal>
                 <summary>Tem música para acalmar criança?</summary>
                 <p>
-                  O foco do App Mundo Gaia está em meditação para crianças e
-                  histórias guiadas. Os áudios têm ritmo suave e acolhedor, mas
-                  a proposta principal não é só música para acalmar criança, e
-                  sim uma experiência completa de relaxamento.
+                  Temos músicas gratuitas disponíveis que foram desenvolvidas para
+                  acalmar crianças.
                 </p>
               </details>
 
@@ -472,7 +518,7 @@
                 <p>
                   As meditações podem acompanhar desde a gestação e costumam
                   fazer sentido para crianças pequenas até por volta dos 10
-                  anos, sempre com a mediação afetuosa de quem cuida.
+                  anos, sempre com o acompanhamento de quem cuida.
                 </p>
               </details>
             </div>
@@ -482,11 +528,11 @@
         <section class="cta-band" id="download">
           <div class="container cta-band__inner" data-reveal>
             <div>
-              <span class="eyebrow">Comece hoje</span>
-              <h2>Baixe o App Mundo Gaia e crie uma rotina mais calma para a sua família.</h2>
+              <span class="eyebrow">Baixe agora</span>
+              <h2>Leve o Mundo Gaia para a sua rotina e experimente uma noite mais calma.</h2>
               <p>
-                Um convite leve para unir história para dormir, meditação para
-                crianças e cuidado emocional dentro da rotina.
+                Um primeiro passo simples para reunir histórias para dormir,
+                meditações infantis e um hábito mais previsível no fim do dia.
               </p>
               <div class="store-links">
                 <a
@@ -514,11 +560,14 @@
                   </span>
                 </a>
               </div>
+              <p class="download-note">
+                O app é gratuito para baixar na App Store e no Google Play.
+              </p>
             </div>
 
             <div class="cta-band__art">
               <img
-                src="/assets/coruja-muro.png"
+                src="/assets/olhando por cima do muro.png"
                 alt="Ilustração da coruja Gaia olhando por cima do muro."
               />
             </div>
@@ -551,14 +600,23 @@
             <div class="footer-meta">
               <strong>Contato</strong>
               <a href="mailto:contato@gaiastar.com.br">contato@gaiastar.com.br</a>
-              <a href="https://www.instagram.com/appmundogaia" target="_blank" rel="noreferrer">
-                Instagram @appmundogaia
+              <a
+                class="footer-social-link"
+                href="https://www.instagram.com/appmundogaia"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.25" />
+                  <circle cx="17.25" cy="6.75" r="1.25" />
+                </svg>
+                <span>@appmundogaia</span>
               </a>
-              <p>corujagaia.com.br</p>
             </div>
           </div>
 
-          <p class="footer-bottom">© 2026 Mundo Gaia. Todos os direitos reservados.</p>
+          <p class="footer-bottom">© <script>document.write( new Date().getFullYear() );</script> Mundo Gaia. Todos os direitos reservados.</p>
         </div>
       </footer>
     </div>

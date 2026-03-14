@@ -3,16 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sobre o App Mundo Gaia | Meditação para crianças e histórias para dormir</title>
+    <title>Sobre o App Mundo Gaia | Deliane e a história do app</title>
     <meta
       name="description"
-      content="Saiba como nasceu o App Mundo Gaia, uma proposta de meditação para crianças e história para dormir criada para acolher emoções, rotina e vínculo familiar."
+      content="Conheça a história do App Mundo Gaia, a trajetória da Deliane e a proposta de acolher emoções com meditação para crianças e histórias para dormir."
     />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://corujagaia.com.br/sobre/" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
-      content="Sobre o App Mundo Gaia | Meditação para crianças e histórias para dormir"
+      content="Sobre o App Mundo Gaia | Deliane e a história do app"
     />
     <meta
       property="og:description"
@@ -21,6 +23,19 @@
     <meta property="og:url" content="https://corujagaia.com.br/sobre/" />
     <meta
       property="og:image"
+      content="https://corujagaia.com.br/assets/deliane.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Sobre o App Mundo Gaia | Deliane e a história do app"
+    />
+    <meta
+      name="twitter:description"
+      content="Saiba como o Mundo Gaia nasceu e por que a Deliane criou esse app para acolher famílias com mais leveza."
+    />
+    <meta
+      name="twitter:image"
       content="https://corujagaia.com.br/assets/deliane.jpg"
     />
     <link rel="icon" href="/assets/logo.png" />
@@ -32,6 +47,41 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://corujagaia.com.br/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sobre nós",
+            "item": "https://corujagaia.com.br/sobre/"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Deliane",
+        "jobTitle": "Educadora física, instrutora de Yoga e Meditação",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Mundo Gaia",
+          "url": "https://corujagaia.com.br/"
+        },
+        "image": "https://corujagaia.com.br/assets/deliane.jpg",
+        "description": "Criadora do App Mundo Gaia, com trajetória voltada ao cuidado emocional, yoga, meditação e infância."
+      }
+    </script>
   </head>
   <body>
     <div class="page-shell">
@@ -64,13 +114,12 @@
               </svg>
             </button>
 
-            <div class="site-nav__links" data-menu>
+            <div class="site-nav__links" data-menu hidden>
               <a class="nav-link" href="/">Início</a>
               <a class="nav-link" href="/sobre/" aria-current="page">Sobre nós</a>
               <a class="nav-link" href="/beneficios/">Benefícios</a>
+              <a class="button button--primary site-nav__cta" href="/#download">Baixe agora</a>
             </div>
-
-            <a class="button button--primary" href="/#download">Baixe agora</a>
           </nav>
         </div>
       </header>
@@ -78,22 +127,69 @@
       <main>
         <section class="hero">
           <div class="container hero__grid hero__grid--inside">
-            <div data-reveal>
-              <div class="breadcrumbs">
+            <div class="hero-copy" data-reveal>
+              <nav class="breadcrumbs" aria-label="Breadcrumb">
                 <a href="/">Início</a>
                 <span>/</span>
                 <span>Sobre nós</span>
-              </div>
+              </nav>
               <span class="eyebrow">Sobre nós</span>
-              <h1>Tudo começou com um olhar mais atento para a infância.</h1>
+              <h1>O Mundo Gaia nasceu da escuta da Deliane sobre infância, corpo e emoções.</h1>
               <p>
-                O App Mundo Gaia nasceu da vontade de criar um caminho gentil
-                para unir meditação para crianças, história para dormir e
-                acolhimento emocional na rotina das famílias.
+                Antes de virar app, essa proposta já existia como cuidado: olhar
+                atento para a infância, prática de yoga e meditação, experiência
+                real com famílias e desejo de tornar a rotina mais acolhedora.
               </p>
+
+              <div class="trust-note">
+                <strong>Criado por pessoas, com presença e intenção.</strong>
+                <p>
+                  Meditações, músicas e histórias criadas 100% por humanos, com
+                  um olhar especial da Deliane. O Mundo Gaia não usa
+                  inteligência artificial na criação desses conteúdos.
+                </p>
+              </div>
+
+              <div class="pill-row" aria-label="Credenciais e vivências da Deliane">
+                <span>Mãe e cuidadora</span>
+                <span>Yoga e meditação</span>
+                <span>Neurociências do comportamento</span>
+                <span>Escuta da infância</span>
+              </div>
+
+              <div class="store-links hero-downloads">
+                <a
+                  class="button button--store button--primary"
+                  href="https://apps.apple.com/br/app/mundo-gaia-medita%C3%A7%C3%A3o-infantil/id6745092747"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="/assets/app-store-icon.png" alt="" aria-hidden="true" />
+                  <span>
+                    <span class="button__eyebrow">Disponível na</span>
+                    <span class="button__label">App Store</span>
+                  </span>
+                </a>
+                <a
+                  class="button button--store button--secondary"
+                  href="https://play.google.com/store/apps/details?id=com.gaiastar.MundoGaia"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src="/assets/play-store-icon.png" alt="" aria-hidden="true" />
+                  <span>
+                    <span class="button__eyebrow">Disponível no</span>
+                    <span class="button__label">Google Play</span>
+                  </span>
+                </a>
+              </div>
+              <p class="download-note">
+                O app é gratuito para baixar na App Store e no Google Play.
+              </p>
+
               <div class="hero__actions">
-                <a class="button button--primary" href="/#download">Baixar o app</a>
                 <a class="button button--secondary" href="#deliane">Conhecer a Deliane</a>
+                <a class="button button--secondary" href="/beneficios/">Ver benefícios</a>
               </div>
             </div>
 
@@ -104,6 +200,23 @@
                   alt="Retrato de Deliane, criadora do Mundo Gaia."
                 />
               </div>
+
+              <div class="hero-card__meta">
+                <div class="hero-card__badge">Criadora do app</div>
+                <div>
+                  <strong>Uma proposta criada para a rotina real, não para um cenário ideal.</strong>
+                  <p>
+                    Deliane reuniu maternidade, yoga, meditação e estudo do
+                    comportamento infantil em uma experiência simples, suave e prática.
+                  </p>
+                </div>
+                <div class="hero-card__chips">
+                  <span>Yoga</span>
+                  <span>Meditação</span>
+                  <span>ABA</span>
+                  <span>Neurociências</span>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -112,17 +225,29 @@
           <div class="container split-panel" data-reveal>
             <div class="panel-text">
               <span class="kicker">Conheça a Deliane</span>
-              <h2>Uma história de conexão, yoga, meditação e cuidado.</h2>
+              <h2>A experiência dela virou um app pensado para apoiar famílias de verdade.</h2>
               <p>
-                Deliane é educadora física, instrutora de Yoga e Meditação, pós graduada em Neurociências do Comportamento e ABA (Análise do Comportamento Aplicada), mãe, tia e "tia avó". A proposta do app nasce desse encontro entre a experiência com crianças e o desejo de oferecer mais presença em uma rotina tão corrida.
+                Deliane é educadora física, instrutora de Yoga e Meditação, pós
+                graduada em Neurociências do Comportamento e ABA (Análise do
+                Comportamento Aplicada), mãe, tia e "tia avó". A proposta do app
+                nasce desse encontro entre a experiência com crianças e o desejo
+                de oferecer mais presença em uma rotina tão corrida.
               </p>
               <p>
                 Ao olhar para a infância com mais delicadeza, ela percebeu a
                 importância de criar um espaço simples, acolhedor e respeitoso
                 para o desenvolvimento emocional. O Mundo Gaia nasce desse
                 desejo de acompanhar famílias com leveza, sem excesso de
-                tecnicismo e sem pressa.
+                tecnicismo e sem pressa. Por isso, o app não tenta substituir o
+                cuidado de quem está perto. Ele entra para ampliar essa presença.
               </p>
+              <div class="section-actions">
+                <a class="button button--primary" href="/#download">Baixar o app</a>
+                <a class="button button--secondary" href="/beneficios/">
+                  Entender como ajuda
+                </a>
+              </div>
+              <p class="download-note">O app é gratuito para baixar.</p>
             </div>
 
             <div class="panel-image">
@@ -156,7 +281,7 @@
               </article>
 
               <article class="story-card" data-reveal>
-                <span class="kicker">02. Criar um ritual</span>
+                <span class="kicker">02. Criar um hábito</span>
                 <h3>Transformar a noite em um espaço de presença.</h3>
                 <p>
                   O app foi pensado para caber na rotina real das famílias, com
@@ -264,7 +389,7 @@
                 </div>
                 <h3>Conexão</h3>
                 <p>
-                  O app aproxima pais e filhos em pequenos rituais de presença,
+                  O app aproxima pais e filhos em pequenos hábitos de presença,
                   escuta e carinho.
                 </p>
               </article>
@@ -275,11 +400,11 @@
         <section class="cta-band">
           <div class="container cta-band__inner" data-reveal>
             <div>
-              <span class="eyebrow">Faça parte dessa história</span>
-              <h2>As meditações do App Mundo Gaia podem acompanhar a sua família com mais calma e presença.</h2>
+              <span class="eyebrow">Se a história fez sentido</span>
+              <h2>O próximo passo é sentir essa proposta na prática dentro da sua rotina.</h2>
               <p>
-                Um caminho simples para transformar a rotina noturna em cuidado
-                emocional, vínculo e história para dormir com mais significado.
+                Baixe o app e experimente como as meditações e histórias guiadas
+                podem entrar com suavidade no fim do dia da sua família.
               </p>
               <div class="section-actions">
                 <a class="button button--primary" href="/#download">Baixar o app</a>
@@ -287,6 +412,7 @@
                   Ver benefícios
                 </a>
               </div>
+              <p class="download-note">O app é gratuito para baixar.</p>
             </div>
 
             <div class="cta-band__art">
@@ -324,8 +450,18 @@
             <div class="footer-meta">
               <strong>Contato</strong>
               <a href="mailto:contato@gaiastar.com.br">contato@gaiastar.com.br</a>
-              <a href="https://www.instagram.com/appmundogaia" target="_blank" rel="noreferrer">
-                Instagram @appmundogaia
+              <a
+                class="footer-social-link"
+                href="https://www.instagram.com/appmundogaia"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4.25" />
+                  <circle cx="17.25" cy="6.75" r="1.25" />
+                </svg>
+                <span>@appmundogaia</span>
               </a>
               <p>corujagaia.com.br</p>
             </div>

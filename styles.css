@@ -121,6 +121,7 @@ button {
   justify-content: space-between;
   gap: 1rem;
   min-height: 84px;
+  position: relative;
 }
 
 .brand {
@@ -139,6 +140,7 @@ button {
 }
 
 .site-nav {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -148,6 +150,15 @@ button {
   display: flex;
   align-items: center;
   gap: 0.35rem;
+}
+
+.site-nav__cta {
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+
+[id] {
+  scroll-margin-top: 108px;
 }
 
 .nav-link {
@@ -192,6 +203,9 @@ button {
   border-radius: 999px;
   font-weight: 700;
   letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
   transition: transform var(--ease), box-shadow var(--ease), background-color var(--ease);
 }
 
@@ -245,11 +259,20 @@ button {
 }
 
 .hero__grid--home {
-  grid-template-columns: minmax(0, 1.06fr) minmax(320px, 0.94fr);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.hero__grid--home-intro {
+  align-items: stretch;
 }
 
 .hero__grid--inside {
   grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+}
+
+.hero-copy {
+  display: grid;
+  align-content: start;
 }
 
 .eyebrow {
@@ -286,7 +309,7 @@ button {
 .hero h1 {
   margin-top: 1.15rem;
   font-size: clamp(2.5rem, 5vw, 4.8rem);
-  max-width: 12ch;
+  max-width: 13ch;
 }
 
 .hero p {
@@ -304,6 +327,41 @@ button {
   flex-wrap: wrap;
   gap: 0.85rem;
   margin-top: 1.6rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-downloads {
+  margin-top: 1.35rem;
+}
+
+.download-note {
+  max-width: 44ch;
+  margin: 0.9rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.trust-note {
+  max-width: 48ch;
+  margin-top: 1.15rem;
+  padding: 1rem 1.1rem;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(28, 22, 120, 0.1);
+  box-shadow: var(--shadow-md);
+}
+
+.trust-note strong {
+  display: block;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.trust-note p {
+  margin: 0.55rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.72;
 }
 
 .trust-row {
@@ -324,10 +382,13 @@ button {
 }
 
 .hero-card,
+.hero-preview,
 .glass-card,
 .story-card,
 .quote-card,
 .faq-card,
+.testimonial-featured,
+.testimonial-card,
 .audio-card,
 .mini-card,
 .value-card,
@@ -426,6 +487,43 @@ button {
   line-height: 1.5;
 }
 
+.hero-preview {
+  display: grid;
+  gap: 1rem;
+  padding: 1.35rem;
+  border-radius: 34px;
+}
+
+.hero-preview__media {
+  min-height: 250px;
+  overflow: hidden;
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(123, 201, 255, 0.16), rgba(255, 255, 255, 0.9));
+}
+
+.hero-preview__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-preview__content {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-preview__content h2 {
+  margin: 0.45rem 0 0;
+  font-size: clamp(1.7rem, 2.8vw, 2.45rem);
+  letter-spacing: -0.04em;
+}
+
+.hero-preview__content p {
+  margin: 0.75rem 0 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
 .section {
   padding: 36px 0;
 }
@@ -472,6 +570,7 @@ button {
 .glass-card,
 .story-card,
 .faq-card,
+.testimonial-card,
 .value-card,
 .mini-card {
   padding: 1.35rem;
@@ -540,6 +639,10 @@ button {
 
 .split-panel--reverse {
   grid-template-columns: minmax(300px, 1.04fr) minmax(0, 0.96fr);
+}
+
+.split-panel--preview {
+  grid-template-columns: minmax(320px, 1.04fr) minmax(0, 0.96fr);
 }
 
 .panel-image,
@@ -663,6 +766,65 @@ button {
   font-weight: 600;
 }
 
+.testimonial-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(300px, 0.94fr);
+  gap: 1rem;
+}
+
+.testimonial-featured {
+  display: grid;
+  gap: 1rem;
+  padding: 1.8rem;
+  border-radius: 34px;
+}
+
+.testimonial-featured blockquote {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+  line-height: 1.5;
+  letter-spacing: -0.03em;
+}
+
+.testimonial-featured footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.8rem;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.testimonial-stack {
+  display: grid;
+  gap: 1rem;
+}
+
+.testimonial-card {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.testimonial-card p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.testimonial-card strong {
+  font-size: 1.06rem;
+  letter-spacing: -0.02em;
+}
+
+.testimonial-card__tag {
+  width: fit-content;
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(133, 118, 255, 0.12);
+  color: var(--primary-deep);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
 .faq {
   padding: 40px 0 54px;
 }
@@ -780,6 +942,21 @@ button {
   gap: 0.5rem;
 }
 
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+}
+
+.footer-social-link svg {
+  width: 1rem;
+  height: 1rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+}
+
 .footer-links strong,
 .footer-meta strong {
   display: block;
@@ -857,6 +1034,7 @@ button {
   .split-panel,
   .split-panel--reverse,
   .faq-shell,
+  .testimonial-layout,
   .audio-card,
   .footer-card,
   .cta-band__inner {
@@ -882,9 +1060,10 @@ button {
   .site-nav__links {
     position: absolute;
     top: calc(100% + 12px);
-    right: 16px;
-    left: 16px;
-    display: none;
+    right: 0;
+    left: 0;
+    z-index: 30;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     padding: 1rem;
@@ -892,18 +1071,39 @@ button {
     background: rgba(255, 255, 255, 0.96);
     border: 1px solid rgba(28, 22, 120, 0.08);
     box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition:
+      opacity var(--ease),
+      transform var(--ease),
+      visibility 0s linear var(--ease);
+  }
+
+  .site-nav__links[hidden] {
+    display: none !important;
   }
 
   .site-nav__links.is-open {
-    display: flex;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition-delay: 0s;
   }
 
   .menu-toggle {
     display: inline-flex;
   }
 
-  .site-nav .button--primary {
-    display: none;
+  .site-nav {
+    position: static;
+  }
+
+  .site-nav__cta {
+    width: 100%;
+    margin-left: 0;
   }
 }
 
@@ -935,10 +1135,13 @@ button {
   }
 
   .hero-card,
+  .hero-preview,
   .glass-card,
   .story-card,
   .quote-card,
   .faq-card,
+  .testimonial-featured,
+  .testimonial-card,
   .audio-card,
   .mini-card,
   .value-card,
