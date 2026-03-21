@@ -12,4 +12,6 @@ Keep file sizes small and put helper functions and components in their own files
 
 It's important to position Deliane as an authority in the subject, without being too pushy.
 
-Blog posts need to be in a tradicional wordpress way, without too many flourishes and more structured material with things like h1, h2, h3, parapraphs, tables, charts, images, etc. Use Article and FAQ schemas to increase chances of appearing in Rich Snippets on Google.
+Blog posts need to be in a tradicional wordpress way, without too many flourishes and more structured material with things like h1, h2, h3, parapraphs, tables, charts, images, etc. Use Article and FAQ schemas to increase chances of appearing in Rich Snippets on Google. Reference blog posts to one another to increase internal traffic, only when it makes sense.
+
+Use the "prompt.md" and "reference for website-texts.md" as references from the complete website.
