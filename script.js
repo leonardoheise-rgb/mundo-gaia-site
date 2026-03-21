@@ -5,6 +5,153 @@ const internalLinks = document.querySelectorAll("a[href]");
 const mobileMenuBreakpoint = window.matchMedia("(max-width: 980px)");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const scrollResetKey = "gaia-scroll-reset";
+const gaMeasurementId = "G-TNPDTMW094";
+const localHostnames = new Set(["localhost", "127.0.0.1"]);
+const isAnalyticsEnabled =
+  window.location.protocol !== "file:" &&
+  !localHostnames.has(window.location.hostname);
+let hasTrackedPreviewPlay = false;
+
+function initializeAnalytics() {
+  if (!isAnalyticsEnabled || !gaMeasurementId) {
+    return;
+  }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
+  };
+
+  const analyticsScript = document.createElement("script");
+  analyticsScript.async = true;
+  analyticsScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
+  document.head.append(analyticsScript);
+
+  window.gtag("js", new Date());
+  window.gtag("config", gaMeasurementId, {
+    anonymize_ip: true,
+  });
+}
+
+function trackEvent(eventName, eventParams = {}) {
+  if (!isAnalyticsEnabled || typeof window.gtag !== "function") {
+    return;
+  }
+
+  window.gtag("event", eventName, eventParams);
+}
+
+function normalizeLinkText(link) {
+  return link.textContent?.replace(/\s+/g, " ").trim() || "sem-texto";
+}
+
+function getStorePlatform(url) {
+  if (url.hostname.includes("apps.apple.com")) {
+    return "app_store";
+  }
+
+  if (url.hostname.includes("play.google.com")) {
+    return "google_play";
+  }
+
+  return "";
+}
+
+function trackDownloadIntent(link, url) {
+  const isDownloadAnchor =
+    url.origin === window.location.origin &&
+    url.pathname === window.location.pathname &&
+    url.hash === "#download";
+  const isCrossPageDownloadAnchor =
+    url.origin === window.location.origin &&
+    url.pathname === "/" &&
+    url.hash === "#download";
+
+  if (!isDownloadAnchor && !isCrossPageDownloadAnchor) {
+    return;
+  }
+
+  trackEvent("download_cta_click", {
+    destination: url.pathname + url.hash,
+    link_text: normalizeLinkText(link),
+    source_path: window.location.pathname,
+  });
+}
+
+function trackStoreClick(link, url, onComplete) {
+  const platform = getStorePlatform(url);
+
+  if (!platform) {
+    return false;
+  }
+
+  const eventParams = {
+    platform,
+    destination: url.hostname,
+    link_text: normalizeLinkText(link),
+    source_path: window.location.pathname,
+  };
+
+  if (
+    typeof onComplete === "function" &&
+    isAnalyticsEnabled &&
+    typeof window.gtag === "function"
+  ) {
+    let hasCompleted = false;
+    const completeNavigation = () => {
+      if (hasCompleted) {
+        return;
+      }
+      hasCompleted = true;
+      onComplete();
+    };
+
+    window.gtag("event", "app_store_click", {
+      ...eventParams,
+      event_callback: completeNavigation,
+      transport_type: "beacon",
+    });
+
+    window.setTimeout(completeNavigation, 350);
+    return true;
+  }
+
+  trackEvent("app_store_click", eventParams);
+  if (typeof onComplete === "function") {
+    onComplete();
+  }
+
+  return true;
+}
+
+function ensureExternalLinksOpenInNewTab() {
+  internalLinks.forEach((link) => {
+    let url;
+
+    try {
+      url = new URL(link.href, window.location.href);
+    } catch {
+      return;
+    }
+
+    if (url.origin === window.location.origin) {
+      return;
+    }
+
+    if (!/^https?:$/.test(url.protocol)) {
+      return;
+    }
+
+    link.target = "_blank";
+    const relValues = new Set((link.rel || "").split(/\s+/).filter(Boolean));
+    relValues.add("noreferrer");
+    relValues.add("noopener");
+    link.rel = Array.from(relValues).join(" ");
+  });
+}
+
+initializeAnalytics();
+ensureExternalLinksOpenInNewTab();
 
 function updateMenuAccessibility(isOpen) {
   if (!menuButton || !menuLinks) {
@@ -152,11 +299,25 @@ internalLinks.forEach((link) => {
     return;
   }
 
-  if (url.origin !== window.location.origin) {
-    return;
-  }
-
   link.addEventListener("click", (event) => {
+    trackDownloadIntent(link, url);
+
+    if (link.target === "_blank") {
+      trackStoreClick(link, url);
+      return;
+    }
+
+    if (trackStoreClick(link, url, () => {
+      window.location.href = url.href;
+    })) {
+      event.preventDefault();
+      return;
+    }
+
+    if (url.origin !== window.location.origin) {
+      return;
+    }
+
     closeMenu();
 
     if (shouldHandleAsSamePageLink(url)) {
@@ -220,7 +381,8 @@ if ("IntersectionObserver" in window && revealElements.length > 0) {
 const audioPlayer = document.querySelector("[data-audio]");
 const audioButton = document.querySelector("[data-audio-toggle]");
 const audioStatus = document.querySelector("[data-audio-status]");
-const audioProgress = document.querySelector("[data-audio-progress]");
+const audioSeek = document.querySelector("[data-audio-seek]");
+const audioLabel = document.querySelector("[data-audio-label]");
 const audioIconPath = document.querySelector("[data-audio-icon] path");
 
 function formatDuration(timeInSeconds) {
@@ -236,25 +398,56 @@ function formatDuration(timeInSeconds) {
   return `${minutes}:${seconds}`;
 }
 
-function updateAudioStatus() {
-  if (!audioPlayer || !audioButton || !audioStatus || !audioProgress) {
+function hasAudioDuration() {
+  return Number.isFinite(audioPlayer?.duration) && audioPlayer.duration > 0;
+}
+
+function syncAudioSeek(progressRatio) {
+  if (!audioSeek) {
     return;
   }
 
+  const normalizedProgress = Number.isFinite(progressRatio) ? progressRatio : 0;
+  audioSeek.value = normalizedProgress.toString();
+  audioSeek.disabled = !hasAudioDuration();
+  audioSeek.style.setProperty("--audio-progress", `${normalizedProgress}%`);
+}
+
+function seekAudio(progressRatio) {
+  if (!audioPlayer || !hasAudioDuration()) {
+    return;
+  }
+
+  const nextProgress = Math.min(Math.max(progressRatio, 0), 100);
+  audioPlayer.currentTime = (nextProgress / 100) * audioPlayer.duration;
+  syncAudioSeek(nextProgress);
+  updateAudioStatus();
+}
+
+function updateAudioStatus() {
+  if (!audioPlayer || !audioButton || !audioStatus) {
+    return;
+  }
+
+  const durationAvailable = hasAudioDuration();
   const duration = formatDuration(audioPlayer.duration);
   const currentTime = formatDuration(audioPlayer.currentTime);
-  const progressRatio = audioPlayer.duration
+  const progressRatio = durationAvailable
     ? (audioPlayer.currentTime / audioPlayer.duration) * 100
     : 0;
 
-  audioProgress.style.width = `${progressRatio}%`;
-  audioStatus.textContent = audioPlayer.paused
-    ? `Prévia pausada. Duração total: ${duration}.`
-    : `Reproduzindo agora: ${currentTime} de ${duration}.`;
+  syncAudioSeek(progressRatio);
+  audioStatus.textContent = !durationAvailable
+    ? "Preparando a prévia."
+    : audioPlayer.paused
+      ? `Prévia pausada em ${currentTime} de ${duration}.`
+      : `Reproduzindo agora: ${currentTime} de ${duration}.`;
 
-  audioButton.querySelector("[data-audio-label]").textContent = audioPlayer.paused
-    ? "Ouvir a prévia"
-    : "Pausar a prévia";
+  if (audioLabel) {
+    audioLabel.textContent = audioPlayer.paused
+      ? "Ouvir a prévia"
+      : "Pausar a prévia";
+  }
 
   if (audioIconPath) {
     audioIconPath.setAttribute(
@@ -269,6 +462,13 @@ if (audioPlayer && audioButton) {
     try {
       if (audioPlayer.paused) {
         await audioPlayer.play();
+        if (!hasTrackedPreviewPlay) {
+          trackEvent("preview_audio_play", {
+            audio_name: "Coruja Gaia e o Morango Gigante",
+            source_path: window.location.pathname,
+          });
+          hasTrackedPreviewPlay = true;
+        }
       } else {
         audioPlayer.pause();
       }
@@ -280,6 +480,12 @@ if (audioPlayer && audioButton) {
       }
     }
   });
+
+  if (audioSeek) {
+    audioSeek.addEventListener("input", (event) => {
+      seekAudio(Number(event.currentTarget.value));
+    });
+  }
 
   audioPlayer.addEventListener("loadedmetadata", updateAudioStatus);
   audioPlayer.addEventListener("timeupdate", updateAudioStatus);

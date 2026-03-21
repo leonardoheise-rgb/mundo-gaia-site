@@ -163,6 +163,7 @@
               <a class="nav-link" href="/" aria-current="page">Início</a>
               <a class="nav-link" href="/sobre/">Sobre nós</a>
               <a class="nav-link" href="/beneficios/">Benefícios</a>
+              <a class="nav-link" href="/blog/">Blog</a>
               <a class="button button--primary site-nav__cta" href="#download">Baixe agora</a>
             </div>
           </nav>
@@ -192,7 +193,7 @@
 
               <div class="trust-row" aria-label="Destaques do aplicativo">
                 <span class="trust-pill">Histórias e meditações para dormir</span>
-                <span class="trust-pill">hábitos curtos para noites agitadas</span>
+                <span class="trust-pill">Hábitos curtos para noites agitadas</span>
                 <span class="trust-pill">Mais calma para a criança e para quem cuida</span>
               </div>
             </div>
@@ -241,9 +242,20 @@
                   <span data-audio-label>Ouvir a prévia</span>
                 </button>
 
-                <div class="audio-progress" aria-hidden="true">
-                  <span data-audio-progress></span>
-                </div>
+                <label class="audio-progress" for="audio-seek">
+                  <span class="sr-only">Avançar ou voltar na prévia</span>
+                  <input
+                    class="audio-progress__slider"
+                    id="audio-seek"
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    value="0"
+                    data-audio-seek
+                    aria-label="Avançar ou voltar na prévia"
+                  />
+                </label>
 
                 <p class="audio-status" data-audio-status>
                   Preparando a prévia.
@@ -279,8 +291,8 @@
           <div class="container split-panel" data-reveal>
             <div class="panel-image">
               <img
-                src="/assets/noites-tranquilas.jpg"
-                alt="Imagem que representa uma rotina noturna mais tranquila."
+                src="/assets/Medium shot happy girl laughing with hands meditating.jpg"
+                alt="Menina sorrindo em um momento leve de meditação."
               />
             </div>
             <div class="panel-text">
@@ -317,7 +329,7 @@
               <h2>Para quem o app faz sentido.</h2>
               <p>
                 O Mundo Gaia foi pensado para a rotina real das famílias. Ele
-                ajuda mais quando o objetivo é acalma r a noite, apoiar o sono e
+                ajuda mais quando o objetivo é acalmar a noite, apoiar o sono e
                 criar pequenos hábitos possíveis sem aumentar a pressão.
               </p>
             </div>
@@ -382,7 +394,7 @@
               <article class="mini-card" data-reveal>
                 <h3>Depois de um momento intenso</h3>
                 <p>
-                  Depois de um momento íntimo com a criança, o app pode continuar o hábito
+                  Depois de um momento acolhedor com a criança, o app pode continuar o hábito
                   com mais previsibilidade, menos estímulo e mais suavidade.
                 </p>
               </article>
@@ -438,7 +450,7 @@
                     um jeito tranquilo e amoroso de viver esse vínculo desde cedo.”
                   </p>
                   <strong>Clarissa Suelen Oliveira</strong>
-                  <span class="kicker">mãe da Lia</span>
+                  <span class="kicker">mãe da Lia e do Teo</span>
                 </article>
 
                 <article class="testimonial-card" data-reveal>
@@ -448,9 +460,137 @@
                     autoconhecimento e no autocontrole emocional do meu filho.”
                   </p>
                   <strong>Dafne</strong>
-                  <span class="kicker">mãe do Ian</span>
+                  <span class="kicker">mãe do Ian e do Luis</span>
                 </article>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="blog">
+          <div class="container">
+            <div class="section-heading" data-reveal>
+              <span class="eyebrow">Blog Mundo Gaia</span>
+              <h2>Leituras para acolher sono, emoções e rotina com mais leveza.</h2>
+              <p>
+                Reunimos artigos curtos para ajudar famílias a criar rituais mais
+                previsíveis, entender o papel da meditação infantil e transformar
+                a hora de dormir em um momento de conexão.
+              </p>
+            </div>
+
+            <div class="blog-grid">
+              <article class="blog-card" data-reveal>
+                <a class="blog-card__media" href="/blog/respiracao-cheira-flor-e-assopra-a-vela/">
+                  <img
+                    src="/assets/crianca-cheirando-flor.jpg"
+                    alt="Criança cheirando uma flor em um momento tranquilo."
+                  />
+                </a>
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <span>Respiração infantil</span>
+                    <span>Passo a passo</span>
+                  </div>
+                  <h3>
+                    <a href="/blog/respiracao-cheira-flor-e-assopra-a-vela/">
+                      Como fazer respiração cheira flor e assopra a vela.
+                    </a>
+                  </h3>
+                  <p>
+                    Um guia simples para apresentar essa respiração lúdica em
+                    momentos de transição, agitação ou hora de dormir.
+                  </p>
+                  <a class="blog-card__link" href="/blog/respiracao-cheira-flor-e-assopra-a-vela/">
+                    Ler artigo
+                  </a>
+                </div>
+              </article>
+
+              <article class="blog-card" data-reveal>
+                <a class="blog-card__media" href="/blog/rotina-noturna-infantil/">
+                  <img
+                    src="/assets/noites-tranquilas.jpg"
+                    alt="Cena que representa uma rotina noturna infantil mais tranquila."
+                  />
+                </a>
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <span>Rotina do sono</span>
+                    <span>Leitura guiada</span>
+                  </div>
+                  <h3>
+                    <a href="/blog/rotina-noturna-infantil/">
+                      Como criar uma rotina noturna infantil mais calma em casa.
+                    </a>
+                  </h3>
+                  <p>
+                    Um passo a passo simples para desacelerar a noite sem deixar
+                    a família com a sensação de mais uma tarefa.
+                  </p>
+                  <a class="blog-card__link" href="/blog/rotina-noturna-infantil/">
+                    Ler artigo
+                  </a>
+                </div>
+              </article>
+
+              <article class="blog-card" data-reveal>
+                <a class="blog-card__media" href="/beneficios/historia-para-dormir/">
+                  <img
+                    src="/assets/leitura-na-cama.jpg"
+                    alt="Criança em um momento de leitura antes de dormir."
+                  />
+                </a>
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <span>Sono infantil</span>
+                    <span>Histórias</span>
+                  </div>
+                  <h3>
+                    <a href="/beneficios/historia-para-dormir/">
+                      História para dormir: por que o ritual ajuda a criança a desacelerar.
+                    </a>
+                  </h3>
+                  <p>
+                    Entenda como repetição, voz calma e previsibilidade ajudam a
+                    transformar a hora de dormir.
+                  </p>
+                  <a class="blog-card__link" href="/beneficios/historia-para-dormir/">
+                    Ler artigo
+                  </a>
+                </div>
+              </article>
+
+              <article class="blog-card" data-reveal>
+                <a class="blog-card__media" href="/blog/meditacao-infantil-em-casa/">
+                  <img
+                    src="/assets/Medium shot happy girl laughing with hands meditating.jpg"
+                    alt="Criança em postura de meditação com expressão leve."
+                  />
+                </a>
+                <div class="blog-card__body">
+                  <div class="blog-card__meta">
+                    <span>Meditação infantil</span>
+                    <span>Vida real</span>
+                  </div>
+                  <h3>
+                    <a href="/blog/meditacao-infantil-em-casa/">
+                      Meditação para crianças em casa: como começar sem pressão.
+                    </a>
+                  </h3>
+                  <p>
+                    Um jeito gentil de introduzir respiração, imaginação e
+                    presença no dia a dia das famílias.
+                  </p>
+                  <a class="blog-card__link" href="/blog/meditacao-infantil-em-casa/">
+                    Ler artigo
+                  </a>
+                </div>
+              </article>
+            </div>
+
+            <div class="section-actions" data-reveal>
+              <a class="button button--secondary" href="/blog/">Ver todos os artigos</a>
             </div>
           </div>
         </section>
@@ -458,8 +598,8 @@
         <section class="faq">
           <div class="container faq-shell">
             <div class="text-block" data-reveal>
-              <span class="eyebrow">Perguntas frequentes</span>
-              <h2>O essencial para decidir com calma.</h2>
+              <h2 class="eyebrow faq-title">Perguntas frequentes</h2>
+              <p class="faq-lead">O essencial para decidir com calma.</p>
               <p>
                 Se você está conhecendo o app agora, estas respostas ajudam a
                 entender como ele costuma entrar na rotina, o que esperar da
@@ -595,6 +735,7 @@
               <a href="/">Início</a>
               <a href="/sobre/">Sobre nós</a>
               <a href="/beneficios/">Benefícios</a>
+              <a href="/blog/">Blog</a>
             </div>
 
             <div class="footer-meta">
