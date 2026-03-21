@@ -903,6 +903,85 @@ button {
   margin-top: 0.8rem;
 }
 
+.post-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(28, 22, 120, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: var(--shadow-md);
+}
+
+.post-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+.post-table th,
+.post-table td {
+  padding: 1rem 1.1rem;
+  border-bottom: 1px solid rgba(28, 22, 120, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+.post-table th {
+  color: var(--primary-deep);
+  font-size: 0.95rem;
+  background: rgba(123, 201, 255, 0.16);
+}
+
+.post-table td {
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.post-table tr:last-child td {
+  border-bottom: 0;
+}
+
+.post-mini-chart {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.post-mini-chart__item {
+  display: grid;
+  grid-template-columns: minmax(150px, 1.05fr) minmax(0, 2fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.post-mini-chart__label {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.post-mini-chart__track {
+  height: 12px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(28, 22, 120, 0.08);
+}
+
+.post-mini-chart__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--lavender));
+}
+
+.post-mini-chart__value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-deep);
+}
+
+.post-note {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
 .post-link {
   color: var(--primary-deep);
   font-weight: 700;
@@ -1435,6 +1514,10 @@ button {
   .post-cover,
   .post-image {
     border-radius: 24px;
+  }
+
+  .post-mini-chart__item {
+    grid-template-columns: 1fr;
   }
 
   .hero-card,
