@@ -293,7 +293,7 @@
 
       <main>
         <section class="section" id="artigos">
-          <div class="container">
+          <div class="container" data-blog-search-root>
             <div class="section-heading" data-reveal>
               <nav class="breadcrumbs" aria-label="Breadcrumb">
                 <a href="/">In&iacute;cio</a>
@@ -310,7 +310,39 @@
               </p>
             </div>
 
-            <div class="blog-grid blog-grid--wide">
+            <div class="blog-search glass-card" data-reveal>
+              <div class="blog-search__copy">
+                <h3>Procure por um tema, sintoma ou palavra do artigo</h3>
+              </div>
+              <form class="blog-search__form" role="search" aria-label="Buscar artigos do blog">
+                <label class="sr-only" for="blog-search-input">Buscar artigos do blog</label>
+                <div class="blog-search__field">
+                  <input
+                    id="blog-search-input"
+                    name="busca"
+                    type="search"
+                    placeholder="Ex.: sono infantil, respira&ccedil;&atilde;o, medo do escuro"
+                    autocomplete="off"
+                    data-blog-search-input
+                  />
+                  <button class="blog-search__clear" type="button" data-blog-search-clear hidden>
+                    Limpar
+                  </button>
+                </div>
+                <p class="blog-search__status" data-blog-search-status aria-live="polite">
+                  Digite um termo para encontrar artigos relacionados.
+                </p>
+              </form>
+              <div class="blog-search__empty glass-card" data-blog-search-empty hidden>
+                <h3>Nenhum artigo apareceu para essa busca.</h3>
+                <p>
+                  Tente outra palavra-chave, um tema mais amplo ou uma d&uacute;vida parecida com a
+                  que voc&ecirc; quer resolver hoje.
+                </p>
+              </div>
+            </div>
+
+            <div class="blog-grid blog-grid--wide" data-blog-search-grid>
               <article class="blog-card" data-reveal>
                 <a class="blog-card__media" href="/blog/respiracao-cheira-flor-e-assopra-a-vela/">
                   <img src="/assets/post-images/respiracao-cheira-flor-e-assopra-a-vela.jpg" alt="Crianca usando a brincadeira da flor e da vela para respirar." />

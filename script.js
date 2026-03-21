@@ -378,6 +378,306 @@ if ("IntersectionObserver" in window && revealElements.length > 0) {
   revealElements.forEach((element) => element.classList.add("is-visible"));
 }
 
+const blogSearchRoot = document.querySelector("[data-blog-search-root]");
+const blogSearchForm = blogSearchRoot?.querySelector(".blog-search__form");
+const blogSearchInput = document.querySelector("[data-blog-search-input]");
+const blogSearchClearButton = document.querySelector("[data-blog-search-clear]");
+const blogSearchStatus = document.querySelector("[data-blog-search-status]");
+const blogSearchEmptyState = document.querySelector("[data-blog-search-empty]");
+const blogSearchGrid = document.querySelector("[data-blog-search-grid]");
+
+function normalizeSearchText(value) {
+  return (value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function getCleanText(element) {
+  return element?.textContent?.replace(/\s+/g, " ").trim() || "";
+}
+
+function getBlogSearchTokens(query) {
+  return normalizeSearchText(query).split(" ").filter(Boolean);
+}
+
+function collectBlogSearchEntries(grid) {
+  return Array.from(grid.querySelectorAll(".blog-card"))
+    .map((card, index) => {
+      const titleLink = card.querySelector(".blog-card__body h3 a");
+      const title = getCleanText(titleLink);
+      const excerpt = getCleanText(card.querySelector(".blog-card__body p"));
+      const meta = Array.from(card.querySelectorAll(".blog-card__meta span"))
+        .map((item) => getCleanText(item))
+        .join(" ");
+
+      if (!titleLink?.href || !title) {
+        return null;
+      }
+
+      return {
+        card,
+        index,
+        title,
+        titleSearchText: normalizeSearchText(title),
+        previewSearchText: normalizeSearchText(`${meta} ${excerpt}`),
+        fullTextSearchText: "",
+        url: titleLink.href,
+        isHydrated: false,
+      };
+    })
+    .filter(Boolean);
+}
+
+function extractBlogPostSearchText(documentFragment) {
+  const selectors = [
+    ".post-header p",
+    ".post-header .post-meta span",
+    ".post-header .post-author",
+    ".post-body h2",
+    ".post-body h3",
+    ".post-body p",
+    ".post-body li",
+    ".post-body th",
+    ".post-body td",
+  ];
+
+  return selectors
+    .reduce((content, selector) => {
+      const selectorText = Array.from(documentFragment.querySelectorAll(selector))
+        .map((element) => getCleanText(element))
+        .join(" ");
+
+      if (selectorText) {
+        content.push(selectorText);
+      }
+
+      return content;
+    }, [])
+    .join(" ");
+}
+
+async function hydrateBlogSearchEntry(entry) {
+  if (
+    entry.isHydrated ||
+    !entry.url ||
+    window.location.protocol === "file:"
+  ) {
+    return false;
+  }
+
+  try {
+    const response = await fetch(entry.url, {
+      credentials: "same-origin",
+    });
+
+    if (!response.ok) {
+      return false;
+    }
+
+    const html = await response.text();
+    const parsedDocument = new DOMParser().parseFromString(html, "text/html");
+    entry.fullTextSearchText = normalizeSearchText(extractBlogPostSearchText(parsedDocument));
+    entry.isHydrated = true;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function hydrateBlogSearchEntries(entries, onBatchComplete) {
+  const batchSize = 4;
+
+  for (let index = 0; index < entries.length; index += batchSize) {
+    const batch = entries.slice(index, index + batchSize);
+    const updatedEntries = await Promise.all(batch.map((entry) => hydrateBlogSearchEntry(entry)));
+
+    if (updatedEntries.some(Boolean) && typeof onBatchComplete === "function") {
+      onBatchComplete();
+    }
+  }
+}
+
+function getBlogSearchBodyText(entry) {
+  return `${entry.previewSearchText} ${entry.fullTextSearchText}`.trim();
+}
+
+function getBlogSearchScore(entry, tokens, normalizedQuery) {
+  const bodyText = getBlogSearchBodyText(entry);
+  const matchesAllTokens = tokens.every(
+    (token) => entry.titleSearchText.includes(token) || bodyText.includes(token),
+  );
+
+  if (!matchesAllTokens) {
+    return -1;
+  }
+
+  let score = 0;
+
+  if (normalizedQuery && entry.titleSearchText.startsWith(normalizedQuery)) {
+    score += 220;
+  }
+
+  if (normalizedQuery && entry.titleSearchText.includes(normalizedQuery)) {
+    score += 160;
+  }
+
+  if (normalizedQuery && bodyText.includes(normalizedQuery)) {
+    score += 40;
+  }
+
+  tokens.forEach((token) => {
+    if (entry.titleSearchText.includes(token)) {
+      score += 50;
+    }
+
+    if (bodyText.includes(token)) {
+      score += 12;
+    }
+  });
+
+  return score;
+}
+
+function getBlogSearchMatches(entries, query) {
+  const normalizedQuery = normalizeSearchText(query);
+  const tokens = getBlogSearchTokens(query);
+
+  if (!tokens.length) {
+    return entries.map((entry) => ({
+      entry,
+      score: 0,
+    }));
+  }
+
+  return entries
+    .map((entry) => ({
+      entry,
+      score: getBlogSearchScore(entry, tokens, normalizedQuery),
+    }))
+    .filter((result) => result.score >= 0)
+    .sort((left, right) => right.score - left.score || left.entry.index - right.entry.index);
+}
+
+function setBlogSearchStatus(text) {
+  if (blogSearchStatus) {
+    blogSearchStatus.textContent = text;
+  }
+}
+
+function renderBlogSearch(entries, query, isHydrating) {
+  if (!blogSearchGrid) {
+    return;
+  }
+
+  const trimmedQuery = query.trim();
+  const hasQuery = Boolean(trimmedQuery);
+  const matches = getBlogSearchMatches(entries, trimmedQuery);
+  const matchEntries = matches.map((result) => result.entry);
+  const matchedEntrySet = new Set(matchEntries);
+  const orderedEntries = hasQuery
+    ? matchEntries.concat(entries.filter((entry) => !matchedEntrySet.has(entry)))
+    : entries;
+  const fragment = document.createDocumentFragment();
+
+  orderedEntries.forEach((entry) => {
+    entry.card.hidden = hasQuery ? !matchedEntrySet.has(entry) : false;
+    fragment.append(entry.card);
+  });
+
+  blogSearchGrid.append(fragment);
+
+  if (blogSearchClearButton) {
+    blogSearchClearButton.hidden = !hasQuery;
+  }
+
+  const shouldShowEmptyState = hasQuery && matches.length === 0;
+  blogSearchGrid.hidden = shouldShowEmptyState;
+
+  if (blogSearchEmptyState) {
+    blogSearchEmptyState.hidden = !shouldShowEmptyState;
+  }
+
+  if (!hasQuery) {
+    setBlogSearchStatus(
+      `${entries.length} ${entries.length === 1 ? "artigo dispon\u00edvel" : "artigos dispon\u00edveis"} para explorar.`,
+    );
+    return;
+  }
+
+  const resultsLabel =
+    matches.length === 1
+      ? `1 artigo encontrado para "${trimmedQuery}".`
+      : `${matches.length} artigos encontrados para "${trimmedQuery}".`;
+
+  if (isHydrating && window.location.protocol !== "file:") {
+    setBlogSearchStatus(`${resultsLabel} Procurando tamb\u00e9m dentro do texto completo dos artigos.`);
+    return;
+  }
+
+  setBlogSearchStatus(resultsLabel);
+}
+
+function initializeBlogSearch() {
+  if (!blogSearchRoot || !blogSearchInput || !blogSearchGrid) {
+    return;
+  }
+
+  const entries = collectBlogSearchEntries(blogSearchGrid);
+
+  if (!entries.length) {
+    return;
+  }
+
+  let currentQuery = blogSearchInput.value || "";
+  let isHydrating = window.location.protocol !== "file:";
+
+  const renderCurrentResults = () => {
+    renderBlogSearch(entries, currentQuery, isHydrating);
+  };
+
+  blogSearchForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+  });
+
+  blogSearchInput.addEventListener("input", (event) => {
+    currentQuery = event.currentTarget.value;
+    renderCurrentResults();
+  });
+
+  blogSearchClearButton?.addEventListener("click", () => {
+    blogSearchInput.value = "";
+    currentQuery = "";
+    renderCurrentResults();
+    blogSearchInput.focus();
+  });
+
+  renderCurrentResults();
+
+  if (!isHydrating) {
+    return;
+  }
+
+  const startHydration = () => {
+    hydrateBlogSearchEntries(entries, renderCurrentResults).finally(() => {
+      isHydrating = false;
+      renderCurrentResults();
+    });
+  };
+
+  if (typeof window.requestIdleCallback === "function") {
+    window.requestIdleCallback(startHydration, { timeout: 1200 });
+    return;
+  }
+
+  window.setTimeout(startHydration, 250);
+}
+
+initializeBlogSearch();
+
 const audioPlayer = document.querySelector("[data-audio]");
 const audioButton = document.querySelector("[data-audio-toggle]");
 const audioStatus = document.querySelector("[data-audio-status]");
