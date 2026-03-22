@@ -932,7 +932,7 @@ button {
 }
 
 .post-shell {
-  width: min(760px, 100%);
+  width: min(760px, calc(100vw - 32px));
   margin: 0 auto;
 }
 
