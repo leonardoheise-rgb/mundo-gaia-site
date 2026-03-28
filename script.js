@@ -6,14 +6,15 @@ const mobileMenuBreakpoint = window.matchMedia("(max-width: 980px)");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const scrollResetKey = "gaia-scroll-reset";
 const gaMeasurementId = "G-TNPDTMW094";
+const clarityProjectId = "w2uqtfzunp";
 const localHostnames = new Set(["localhost", "127.0.0.1"]);
-const isAnalyticsEnabled =
+const isTrackingEnabled =
   window.location.protocol !== "file:" &&
   !localHostnames.has(window.location.hostname);
 let hasTrackedPreviewPlay = false;
 
 function initializeAnalytics() {
-  if (!isAnalyticsEnabled || !gaMeasurementId) {
+  if (!isTrackingEnabled || !gaMeasurementId) {
     return;
   }
 
@@ -33,8 +34,32 @@ function initializeAnalytics() {
   });
 }
 
+function initializeClarity() {
+  if (!isTrackingEnabled || !clarityProjectId) {
+    return;
+  }
+
+  window.clarity =
+    window.clarity ||
+    function clarity() {
+      (window.clarity.q = window.clarity.q || []).push(arguments);
+    };
+
+  const clarityScript = document.createElement("script");
+  clarityScript.async = true;
+  clarityScript.src = `https://www.clarity.ms/tag/${clarityProjectId}`;
+
+  const firstScript = document.getElementsByTagName("script")[0];
+  if (firstScript?.parentNode) {
+    firstScript.parentNode.insertBefore(clarityScript, firstScript);
+    return;
+  }
+
+  document.head.append(clarityScript);
+}
+
 function trackEvent(eventName, eventParams = {}) {
-  if (!isAnalyticsEnabled || typeof window.gtag !== "function") {
+  if (!isTrackingEnabled || typeof window.gtag !== "function") {
     return;
   }
 
@@ -94,7 +119,7 @@ function trackStoreClick(link, url, onComplete) {
 
   if (
     typeof onComplete === "function" &&
-    isAnalyticsEnabled &&
+    isTrackingEnabled &&
     typeof window.gtag === "function"
   ) {
     let hasCompleted = false;
@@ -151,6 +176,7 @@ function ensureExternalLinksOpenInNewTab() {
 }
 
 initializeAnalytics();
+initializeClarity();
 ensureExternalLinksOpenInNewTab();
 
 function updateMenuAccessibility(isOpen) {
