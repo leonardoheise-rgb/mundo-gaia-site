@@ -8,6 +8,9 @@ const scrollResetKey = "gaia-scroll-reset";
 const gaMeasurementId = "G-TNPDTMW094";
 const clarityProjectId = "w2uqtfzunp";
 const localHostnames = new Set(["localhost", "127.0.0.1"]);
+const appStoreUrl =
+  "https://apps.apple.com/br/app/mundo-gaia-medita%C3%A7%C3%A3o-infantil/id6745092747";
+const googlePlayUrl = "https://play.google.com/store/apps/details?id=com.gaiastar.MundoGaia";
 const isTrackingEnabled =
   window.location.protocol !== "file:" &&
   !localHostnames.has(window.location.hostname);
@@ -80,6 +83,51 @@ function getStorePlatform(url) {
   }
 
   return "";
+}
+
+function getDeviceStoreUrl() {
+  const userAgent = navigator.userAgent || "";
+  const platform = navigator.platform || "";
+  const maxTouchPoints = navigator.maxTouchPoints || 0;
+  const isAndroid = /android/i.test(userAgent);
+  const isIPhoneOrIPod = /iphone|ipod/i.test(userAgent);
+  // iPadOS can report itself as Mac, so touch support helps us identify it.
+  const isIPad =
+    /ipad/i.test(userAgent) ||
+    (platform === "MacIntel" && maxTouchPoints > 1);
+
+  if (isAndroid) {
+    return googlePlayUrl;
+  }
+
+  if (isIPhoneOrIPod || isIPad) {
+    return appStoreUrl;
+  }
+
+  return "";
+}
+
+function configureSmartDownloadCtas() {
+  const smartDownloadCtas = document.querySelectorAll("[data-smart-download-cta]");
+
+  if (smartDownloadCtas.length === 0) {
+    return;
+  }
+
+  const deviceStoreUrl = getDeviceStoreUrl();
+
+  smartDownloadCtas.forEach((link) => {
+    if (!deviceStoreUrl) {
+      link.href = "#download";
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
+      return;
+    }
+
+    link.href = deviceStoreUrl;
+    link.target = "_blank";
+    link.rel = "noreferrer noopener";
+  });
 }
 
 function trackDownloadIntent(link, url) {
@@ -178,6 +226,7 @@ function ensureExternalLinksOpenInNewTab() {
 initializeAnalytics();
 initializeClarity();
 ensureExternalLinksOpenInNewTab();
+configureSmartDownloadCtas();
 
 function updateMenuAccessibility(isOpen) {
   if (!menuButton || !menuLinks) {
