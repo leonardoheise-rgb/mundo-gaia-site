@@ -7,6 +7,7 @@ const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)
 const scrollResetKey = "gaia-scroll-reset";
 const gaMeasurementId = "G-TNPDTMW094";
 const clarityProjectId = "w2uqtfzunp";
+const metaPixelId = "685303866358553";
 const localHostnames = new Set(["localhost", "127.0.0.1"]);
 const appStoreUrl =
   "https://apps.apple.com/br/app/mundo-gaia-medita%C3%A7%C3%A3o-infantil/id6745092747";
@@ -61,12 +62,64 @@ function initializeClarity() {
   document.head.append(clarityScript);
 }
 
+function initializeMetaPixel() {
+  if (!isTrackingEnabled || !metaPixelId) {
+    return;
+  }
+
+  if (typeof window.fbq === "function") {
+    return;
+  }
+
+  const fbq = function fbq() {
+    fbq.callMethod ? fbq.callMethod.apply(fbq, arguments) : fbq.queue.push(arguments);
+  };
+
+  fbq.push = fbq;
+  fbq.loaded = true;
+  fbq.version = "2.0";
+  fbq.queue = [];
+
+  window.fbq = fbq;
+  window._fbq = fbq;
+
+  const metaPixelScript = document.createElement("script");
+  metaPixelScript.async = true;
+  metaPixelScript.src = "https://connect.facebook.net/en_US/fbevents.js";
+
+  const firstScript = document.getElementsByTagName("script")[0];
+  if (firstScript?.parentNode) {
+    firstScript.parentNode.insertBefore(metaPixelScript, firstScript);
+  } else {
+    document.head.append(metaPixelScript);
+  }
+
+  window.fbq("init", metaPixelId);
+  window.fbq("track", "PageView");
+}
+
 function trackEvent(eventName, eventParams = {}) {
   if (!isTrackingEnabled || typeof window.gtag !== "function") {
     return;
   }
 
   window.gtag("event", eventName, eventParams);
+}
+
+function trackMetaStandardEvent(eventName, eventParams = {}) {
+  if (!isTrackingEnabled || typeof window.fbq !== "function") {
+    return;
+  }
+
+  window.fbq("track", eventName, eventParams);
+}
+
+function trackMetaCustomEvent(eventName, eventParams = {}) {
+  if (!isTrackingEnabled || typeof window.fbq !== "function") {
+    return;
+  }
+
+  window.fbq("trackCustom", eventName, eventParams);
 }
 
 function normalizeLinkText(link) {
@@ -149,6 +202,12 @@ function trackDownloadIntent(link, url) {
     link_text: normalizeLinkText(link),
     source_path: window.location.pathname,
   });
+
+  trackMetaCustomEvent("DownloadIntent", {
+    destination: url.pathname + url.hash,
+    link_text: normalizeLinkText(link),
+    source_path: window.location.pathname,
+  });
 }
 
 function trackStoreClick(link, url, onComplete) {
@@ -164,6 +223,9 @@ function trackStoreClick(link, url, onComplete) {
     link_text: normalizeLinkText(link),
     source_path: window.location.pathname,
   };
+
+  trackMetaStandardEvent("Lead", eventParams);
+  trackMetaCustomEvent("AppStoreClick", eventParams);
 
   if (
     typeof onComplete === "function" &&
@@ -197,6 +259,45 @@ function trackStoreClick(link, url, onComplete) {
   return true;
 }
 
+function trackContactClick(link) {
+  const href = link.getAttribute("href");
+
+  if (!href?.startsWith("mailto:")) {
+    return false;
+  }
+
+  const emailAddress = href.slice("mailto:".length);
+  const eventParams = {
+    contact_method: "email",
+    destination: emailAddress,
+    link_text: normalizeLinkText(link),
+    source_path: window.location.pathname,
+  };
+
+  trackEvent("contact_click", eventParams);
+  trackMetaStandardEvent("Contact", eventParams);
+  return true;
+}
+
+function trackMetaViewContent() {
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const isBlogArticle = pathSegments[0] === "blog" && pathSegments.length > 1;
+  const isLandingPage = pathname === "/lp";
+  const isBenefitsDetail = pathSegments[0] === "beneficios" && pathSegments.length > 1;
+
+  if (!isBlogArticle && !isLandingPage && !isBenefitsDetail) {
+    return;
+  }
+
+  trackMetaStandardEvent("ViewContent", {
+    content_name: document.title,
+    content_category: isBlogArticle ? "blog_article" : "landing_page",
+    content_type: "website_page",
+    content_ids: [pathname],
+  });
+}
+
 function ensureExternalLinksOpenInNewTab() {
   internalLinks.forEach((link) => {
     let url;
@@ -225,6 +326,8 @@ function ensureExternalLinksOpenInNewTab() {
 
 initializeAnalytics();
 initializeClarity();
+initializeMetaPixel();
+trackMetaViewContent();
 ensureExternalLinksOpenInNewTab();
 configureSmartDownloadCtas();
 
@@ -362,7 +465,14 @@ if (menuButton && menuLinks) {
 internalLinks.forEach((link) => {
   const href = link.getAttribute("href");
 
-  if (!href || href.startsWith("mailto:") || href.startsWith("tel:")) {
+  if (!href || href.startsWith("tel:")) {
+    return;
+  }
+
+  if (href.startsWith("mailto:")) {
+    link.addEventListener("click", () => {
+      trackContactClick(link);
+    });
     return;
   }
 
